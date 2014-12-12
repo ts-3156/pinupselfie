@@ -1,0 +1,75 @@
+* {
+    /* outline: 1px dotted pink; */
+}
+
+/* 基本的にすべての要素に以下のルールを適用 */
+html, body, div, img, h1, ul, li, a {
+    display: block;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    list-style-type: none;
+    line-height: 0;
+}
+
+/* 全画面化する要素 */
+html, body, div, ul {
+    width: 100%;
+    height: 100%;
+    background: black;
+    overflow: hidden;
+}
+
+/* 座標の原点を設定 */
+body {
+    position: relative;
+}
+h1, div, ul, li {
+    position: absolute;
+}
+
+/* 高さの設定 */
+ul {
+    z-index: 100;
+}
+ul.prev {
+    z-index: 200;
+}
+h1 {
+    z-index: 300;
+}
+
+/* 相対サイズ */
+li a, li a img {
+    width: 100%;
+    height: 100%;
+}
+
+/* ソーシャルボタン */
+iframe.facebook {
+    height:25px;
+    margin:20px 0 0 20px;
+    padding:0px;
+    border:0px;
+    overflow:hidden;
+}
+
+.twitter-share-button{
+    margin:10px 0 0 20px;
+    padding:0px;
+    border:0px;
+    display:block;
+}
+
+.pfj{
+    margin:10px 0 0 20px;
+    padding:10px 0 10px 2px;
+    font-size:11pt;
+    color:#CCCCCC;
+}
+
+.pfj a{
+    color:#CCCCCC;
+    margin-right:20px;
+    display:inline;
+}
