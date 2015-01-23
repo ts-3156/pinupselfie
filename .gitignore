@@ -3,3 +3,4 @@
 /.bundle
 /vendor/bundle
 /config/twitter.yml
+/assets/json/cute.json
