@@ -45,21 +45,11 @@ Application.prototype.start = function start() {
 
 Application.prototype.phaseOfOpening = function(serial, callbackFn, errorbackFn) {
   var app = this;
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      try {
-        var urlList = JSON.parse(xhr.responseText);
-      }
-      catch (e) {
-        DEBUG && assert(false);
-        errorbackFn('JSON Parse Error', xhr.responseText);
-      }
-      afterGetUrlList(Util.shuffle(urlList));
-    }
-  };
-  xhr.open('GET', this.popularApiUrl_ + '?seed=' + Math.random());
-  xhr.send(null);
+
+  $.getJSON(this.popularApiUrl_ + '?seed=' + Math.random())
+      .done(function(json){
+        afterGetUrlList(Util.shuffle(json));
+      });
 
   function afterGetUrlList(urlInfoList) {
     var layout = app.calcLayout();
@@ -185,21 +175,11 @@ Application.prototype.phaseOfLoop = function(serial, callbackFn, errorbackFn) {
   var prevContainerEl = app.containerEl_;
   prevContainerEl.className = 'prev';
   app.containerEl_ = null;
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      try {
-        var urlList = JSON.parse(xhr.responseText);
-      }
-      catch (e) {
-        DEBUG && assert(false);
-        errorbackFn('JSON Parse Error', xhr.responseText);
-      }
-      afterGetUrlList(Util.shuffle(urlList));
-    }
-  };
-  xhr.open('GET', this.cuteApiUrl_ + '?seed=' + Math.random());
-  xhr.send(null);
+
+  $.getJSON(this.cuteApiUrl_ + '?seed=' + Math.random())
+      .done(function(json){
+        afterGetUrlList(Util.shuffle(json));
+      });
 
   var imgRectList = [];
 
@@ -428,27 +408,6 @@ Util.shuffle = function(list) {
   }
   return list;
 }
-
-if (!window.XMLHttpRequest) {
-  if (window.ActiveXObject) {
-    window.XMLHttpRequest = function XMLHttpRequest() {
-      try {
-        return new ActiveXObject("Msxml2.XMLHTTP");
-      }
-      catch (e) {
-        try {
-          return new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        catch (e2) {
-          DEBUG && assert(false);
-        }
-      }
-    };
-  }
-  else {
-    DEBUG && assert(false);
-  }
-};
 
 function PlacingStrategy() {
 }

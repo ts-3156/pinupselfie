@@ -21,7 +21,7 @@ class Script
     puts photos.size
     puts photos.map { |p| p.attrs[:media_url] }
 
-    json = photos.map { |p| {url: p.attrs[:media_url], link: 'http://example.com/'} }
+    json = photos.map { |p| {url: p.attrs[:media_url], link: p.attrs[:url]} }
     open('assets/json/cute.json', 'w') { |f| f.write(JSON.pretty_generate(json)) }
   end
 
