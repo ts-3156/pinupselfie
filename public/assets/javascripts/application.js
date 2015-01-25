@@ -265,13 +265,8 @@ Application.prototype.calcLayout = function () {
 
 function Wrapper(el, href, rect, size, leftMargin, topMargin) {
   this.el_ = el;
-  this.anchorEl_ = document.createElement('a');
-  this.anchorEl_.appendChild(this.el_);
-  this.anchorEl_.href = href;
-  this.wrapperEl_ = document.createElement('li');
-  this.wrapperStyle_ = this.wrapperEl_.style;
-  Style.setRect(this.wrapperStyle_, rect, size, leftMargin, topMargin);
-  this.wrapperEl_.appendChild(this.anchorEl_);
+  this.anchorEl_ = $('<a />').attr('href', href).append(this.el_);
+  this.wrapperEl_ = $('<li />').css(Style.getRect(rect, size, leftMargin, topMargin)).append(this.anchorEl_);
 }
 
 Wrapper.prototype.getElement = function () {
@@ -283,11 +278,11 @@ Wrapper.prototype.getAnchorElement = function () {
 };
 
 Wrapper.prototype.getWrapperElement = function () {
-  return this.wrapperEl_;
+  return this.wrapperEl_[0];
 };
 
 Wrapper.prototype.getWrapperStyle = function () {
-  return this.wrapperStyle_;
+  return this.wrapperEl_[0].style;
 };
 
 function TileRect(x, y, w, h) {
@@ -461,6 +456,15 @@ Style.setRect = function (style, rect, size, leftMargin, topMargin) {
   style.top = rect.top * size + topMargin + 'px';
   style.width = rect.width * size + 'px';
   style.height = rect.height * size + 'px';
+};
+
+Style.getRect = function (rect, size, leftMargin, topMargin) {
+  return {
+    left: rect.left * size + leftMargin + 'px',
+    top: rect.top * size + topMargin + 'px',
+    width: rect.width * size + 'px',
+    height: rect.height * size + 'px'
+  }
 };
 
 Style.setOpacity = function (style, opacity) {
