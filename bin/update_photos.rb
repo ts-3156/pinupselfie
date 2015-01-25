@@ -14,6 +14,9 @@ class Script
         tomoe_0116 y_amamiya_y yoshida_saki yukakuramoti)
     end
 
+  MAX_PAGINATES = DEBUG ? 1 : 3
+  COUNT = DEBUG ? 30 : 100
+
   def run
     users = client.users(NAMES)
     photos = users.map { |user| fetch_photos(user) }.flatten
@@ -32,7 +35,7 @@ class Script
   end
 
   def fetch_photos(user)
-    p = client.user_photos(user, {max_paginates: 1, count: 100})
+    p = client.user_photos(user, {max_paginates: MAX_PAGINATES, count: COUNT})
     puts "#{user.screen_name}, #{p.size}"
     p
   rescue => e
