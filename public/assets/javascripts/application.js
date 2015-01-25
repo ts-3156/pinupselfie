@@ -66,6 +66,20 @@ function appendSocialEl(containerRect, containerEl, imageSize, leftMargin, topMa
   scriptEl.src = 'http://platform.twitter.com/widgets.js';
   scriptEl.type = 'text/javascript';
   socialEl_.appendChild(scriptEl);
+
+  return socialEl_
+}
+
+function appendLinks() {
+  var ancDiv = document.createElement('div');
+  ancDiv.className = "pfj";
+  var ancEl = document.createElement('a');
+  ancEl.href = "https://github.com/ts-3156/pinupselfie/wiki/About-Design";
+  ancEl.style.color = "#FFFFFF";
+  ancEl.appendChild(document.createTextNode("About Design"));
+  ancDiv.appendChild(ancEl);
+
+  return ancDiv
 }
 
 function createCachableImage(rect, urlInfo) {
@@ -114,7 +128,8 @@ Application.prototype.phaseOfOpening = function (serial, callbackFn, forceLoopTi
     fade.start(function () {
     });
 
-    appendSocialEl(containerRect, containerEl, imageSize, leftMargin, topMargin);
+    var socialEl = appendSocialEl(containerRect, containerEl, imageSize, leftMargin, topMargin);
+    socialEl.appendChild(appendLinks());
 
     var rectList = app.placingStrategy_.execute(containerRect, logoRect);
     var imageLength = Math.min(rectList.length, urlInfoList.length);
@@ -192,7 +207,8 @@ Application.prototype.phaseOfLoop = function (serial, callbackFn, forceLoopTime)
     var logoWrapperStyle = logoWrapper.getWrapperStyle();
     containerEl.appendChild(logoWrapper.getWrapperElement());
 
-    appendSocialEl(containerRect, containerEl, imageSize, leftMargin, topMargin);
+    var socialEl = appendSocialEl(containerRect, containerEl, imageSize, leftMargin, topMargin);
+    socialEl.appendChild(appendLinks());
 
     var rectList = app.placingStrategy_.execute(containerRect, logoRect);
     var imageLength = Math.min(rectList.length, urlInfoList.length);
@@ -238,7 +254,7 @@ Application.prototype.phaseOfLoop = function (serial, callbackFn, forceLoopTime)
         app.mainEl_.removeChild(prevContainerEl);
         callbackFn();
       });
-    }, Math.max(8000 - timeSpan, 1));
+    }, Math.max(10000 - timeSpan, 1));
   }
 };
 
