@@ -1,9 +1,9 @@
 require 'ex_twitter'
 
 class Script
-  DEBUG = true
-
   CONFIG = YAML.load_file('config/twitter.yml')
+
+  DEBUG = CONFIG['debug']
 
   NAMES =
     if DEBUG
