@@ -32,7 +32,7 @@ class Script
   end
 
   def fetch_photos(user)
-    p = client.user_photos(user, {max_paginates: 1, count: 30})
+    p = client.user_photos(user, {max_paginates: 1, count: 100})
     puts "#{user.screen_name}, #{p.size}"
     p
   rescue => e
