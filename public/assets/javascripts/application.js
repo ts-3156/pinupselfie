@@ -281,7 +281,8 @@ Application.prototype.calcLayout = function () {
 
 function Wrapper(el, href, rect, size, leftMargin, topMargin) {
   this.el_ = el;
-  this.anchorEl_ = $('<a />').attr('href', href).append(this.el_);
+  var redirect_url = '//' + window.location.host + '/redirect/to?url=' + href;
+  this.anchorEl_ = $('<a />').attr('href', redirect_url).append(this.el_);
   this.wrapperEl_ = $('<li />').css(Style.getRect(rect, size, leftMargin, topMargin)).append(this.anchorEl_);
 }
 
