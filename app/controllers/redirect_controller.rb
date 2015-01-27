@@ -1,6 +1,6 @@
 class RedirectController < ApplicationController
   def to
-    url = params[:url]
+    url = params[:url] || ''
     if url.match(%r{^https?://twitter.com})
       redirect_to url
     else
