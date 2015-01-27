@@ -7,6 +7,8 @@
 /config/twitter.yml
 /public/assets/json/cute.json
 
+/.env
+
 # Ignore bundler config.
 /.bundle
 /vendor/bundle
