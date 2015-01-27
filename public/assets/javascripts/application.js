@@ -259,22 +259,35 @@ Application.prototype.phaseOfLoop = function (serial, callbackFn, forceLoopTime)
 };
 
 Application.prototype.calcLayout = function () {
-  var imageSize = 120;
+  function imageSize(){
+    var size = 120;
+    var agent = navigator.userAgent;
+    if (agent.search(/iPhone/) != -1) {
+      size *= 1.5;
+    } else if (agent.search(/iPad/) != -1) {
+    } else if (agent.search(/Android/) != -1) {
+      size *= 1.5;
+    }
+    return size;
+  }
+
+  var topMargin, leftMargin, rect, numberOfImageY, realImageSize, numberOfImageX;
+
   if (this.viewportHeight_ < this.viewportWidth_) {
-    var numberOfImageY = Math.floor(this.viewportHeight_ / imageSize);
-    var realImageSize = this.viewportHeight_ / numberOfImageY;
-    var numberOfImageX = Math.floor(this.viewportWidth_ / realImageSize)
-    var rect = new TileRect(0, 0, numberOfImageX, numberOfImageY);
-    var leftMargin = (this.viewportWidth_ - numberOfImageX * realImageSize) / 2;
-    var topMargin = 0;
+    numberOfImageY = Math.floor(this.viewportHeight_ / imageSize());
+    realImageSize = this.viewportHeight_ / numberOfImageY;
+    numberOfImageX = Math.floor(this.viewportWidth_ / realImageSize);
+    rect = new TileRect(0, 0, numberOfImageX, numberOfImageY);
+    leftMargin = (this.viewportWidth_ - numberOfImageX * realImageSize) / 2;
+    topMargin = 0;
   }
   else {
-    var numberOfImageX = Math.floor(this.viewportWidth_ / imageSize);
-    var realImageSize = this.viewportWidth_ / numberOfImageX;
-    var numberOfImageY = Math.floor(this.viewportHeight_ / realImageSize)
-    var rect = new TileRect(0, 0, numberOfImageX, numberOfImageY);
-    var leftMargin = 0;
-    var topMargin = (this.viewportHeight_ - numberOfImageY * realImageSize) / 2;
+    numberOfImageX = Math.floor(this.viewportWidth_ / imageSize());
+    realImageSize = this.viewportWidth_ / numberOfImageX;
+    numberOfImageY = Math.floor(this.viewportHeight_ / realImageSize);
+    rect = new TileRect(0, 0, numberOfImageX, numberOfImageY);
+    leftMargin = 0;
+    topMargin = (this.viewportHeight_ - numberOfImageY * realImageSize) / 2;
   }
   return [rect, realImageSize, leftMargin, topMargin];
 };
@@ -345,7 +358,7 @@ Util.getLargeUrl = function getLargeUrl(url) {
 
 Util.sinoidal = function sinoidal(pos) {
   return (-Math.cos(pos * Math.PI) / 2) + 0.5;
-}
+};
 
 Util.shuffle = function (list) {
   var i = list.length;
@@ -356,7 +369,7 @@ Util.shuffle = function (list) {
     list[j] = t;
   }
   return list;
-}
+};
 
 function PlacingStrategy() {
 }
@@ -446,7 +459,7 @@ function CachableImage(src) {
   });
   this.src_ = src;
   this.el_.src = src;
-};
+}
 
 CachableImage.prototype.handleLoad_ = function () {
   this.loaded_ = true;
