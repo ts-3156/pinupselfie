@@ -81,6 +81,7 @@ GEM
       haml (>= 3.1, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    hashie (3.3.2)
     hike (1.2.3)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
@@ -243,6 +244,7 @@ DEPENDENCIES
   dotenv-rails
   ex_twitter
   haml-rails
+  hashie
   jbuilder (~> 2.0)
   jquery-rails
   newrelic_rpm

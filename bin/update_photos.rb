@@ -24,7 +24,15 @@ class Script
     puts photos.size
     puts photos.map { |p| p.attrs[:media_url] }
 
-    json = photos.map { |p| {url: "#{p.attrs[:media_url]}:small", link: p.attrs[:expanded_url]} }
+    json = photos.map do |p|
+      attrs = p.attrs
+      {
+        url: "#{attrs[:media_url]}:small",
+        link: attrs[:expanded_url],
+        status_id: attrs[:expanded_url].match(%r{status/(\d+)/photo})[1],
+        photo_id: attrs[:id_str]
+      }
+    end
     open('public/assets/json/cute.json', 'w') { |f| f.write(JSON.pretty_generate(json)) }
   end
 

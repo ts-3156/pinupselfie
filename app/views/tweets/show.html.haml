@@ -4,9 +4,15 @@
   .row
     .col-xs-12.col-sm-6.col-md-6.left-box
       .photo
-        %img(src="http://pbs.twimg.com/media/B8RnBLSCMAEA5_B.jpg")
+        %img{src: @photo.media_url}
     .col-xs-12.col-sm-6.col-md-6.right-box
-      %div aaa
+      %div
+        %img{src: @user.profile_image_url}
+        = link_to "@#{@user.screen_name}", "https://twitter.com/#{@user.screen_name}", target: '_blank'
+        &nbsp;
+        = "#{@user.name}"
+      %div
+        = link_to time_ago_in_words(@tweet.created_at), "https://twitter.com/#{@user.screen_name}/status/#{@tweet.id}", target: '_blank'
       %hr
       %div aaa
       %div aaa

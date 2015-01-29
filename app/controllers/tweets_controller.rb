@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: [:edit, :update, :destroy]
+  before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
   # GET /tweets
   # GET /tweets.json
@@ -10,6 +10,15 @@ class TweetsController < ApplicationController
   # GET /tweets/1
   # GET /tweets/1.json
   def show
+    @user = @tweet.user
+    @photo =
+      if params[:photo_id].present? && params[:photo_id].match(/\A\d+\z/) && @tweet.media?
+        photo_id = params[:photo_id]
+        photo = @tweet.media.find{|m| m.id == photo_id }
+        @tweet.media.first if photo.nil?
+      else
+        Hashie::Mash.new(Hash.new(''))
+      end
   end
 
   # GET /tweets/new
@@ -64,7 +73,10 @@ class TweetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
-      @tweet = Tweet.find(params[:id])
+      @client ||= ExTwitter.new(YAML.load_file(Rails.root.join('config/twitter.yml')))
+      if params[:id].present? && params[:id].match(/\A\d+\z/)
+        @tweet = @client.status(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -142,7 +142,7 @@ Application.prototype.phaseOfOpening = function (serial, callbackFn, forceLoopTi
       var img = createCachableImage(rect, urlInfo);
 
       var imageEl = img.getElement();
-      var wrapper = new Wrapper(imageEl, urlInfo.link, rect, imageSize, leftMargin, topMargin);
+      var wrapper = new Wrapper(imageEl, urlInfo, rect, imageSize, leftMargin, topMargin);
       containerEl.appendChild(wrapper.getWrapperElement());
       var imageStyle = wrapper.getWrapperStyle();
       Style.setOpacity(imageStyle, 0);
@@ -226,7 +226,7 @@ Application.prototype.phaseOfLoop = function (serial, callbackFn, forceLoopTime)
       var img = createCachableImage(rect, urlInfo);
 
       var imageEl = img.getElement();
-      var wrapper = new Wrapper(imageEl, urlInfo.link, rect, imageSize, leftMargin, topMargin);
+      var wrapper = new Wrapper(imageEl, urlInfo, rect, imageSize, leftMargin, topMargin);
       containerEl.appendChild(wrapper.getWrapperElement());
 
       (function handleLoad(img) {
@@ -292,10 +292,10 @@ Application.prototype.calcLayout = function () {
   return [rect, realImageSize, leftMargin, topMargin];
 };
 
-function Wrapper(el, href, rect, size, leftMargin, topMargin) {
+function Wrapper(el, urlInfo, rect, size, leftMargin, topMargin) {
   this.el_ = el;
-  var redirect_url = '//' + window.location.host + '/redirect/to?url=' + href;
-  this.anchorEl_ = $('<a />').attr('href', redirect_url).append(this.el_);
+  var params = {id: urlInfo.status_id, photo_id: urlInfo.photo_id};
+  this.anchorEl_ = $('<a />').attr('href', '/tweets/?' + $.param(params)).append(this.el_);
   this.wrapperEl_ = $('<li />').css(Style.getRect(rect, size, leftMargin, topMargin)).append(this.anchorEl_);
 }
 
