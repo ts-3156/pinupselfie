@@ -25,8 +25,8 @@
         .col-sm-8
       %hr
       %div
-        = button_to "Search @#{@user.screen_name}", '', class: 'btn btn-default'
+        = button_to "Search @#{@user.screen_name}", search_path(screen_name: @user.screen_name), class: 'btn btn-default'
       %div
         - if @tweet.hashtags?
           - @tweet.hashtags.each do |hashtag|
-            = button_to "Search ##{hashtag.text}", '', class: 'btn btn-default'
+            = button_to "Search ##{hashtag.text}", search_path(hashtag: hashtag.text), class: 'btn btn-default'

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'redirect/to'
-  get 'search' => 'searches#index'
+  get 'search' => 'searches#show'
   get 'tweets' => 'tweets#show'
 
   root 'searches#index'

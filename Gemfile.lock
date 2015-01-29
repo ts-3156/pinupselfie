@@ -64,7 +64,7 @@ GEM
       dotenv (= 1.0.2)
     equalizer (0.0.9)
     erubis (2.7.0)
-    ex_twitter (0.0.3)
+    ex_twitter (0.0.4)
       activesupport
       parallel
       twitter
