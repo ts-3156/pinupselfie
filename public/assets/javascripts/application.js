@@ -293,9 +293,15 @@ Application.prototype.calcLayout = function () {
 };
 
 function Wrapper(el, urlInfo, rect, size, leftMargin, topMargin) {
+  var url;
+  if(_.isObject(urlInfo)){
+    var params = {id: urlInfo.status_id, photo_id: urlInfo.photo_id};
+    url = '/tweets/?' + $.param(params);
+  }else{
+    url = urlInfo;
+  }
   this.el_ = el;
-  var params = {id: urlInfo.status_id, photo_id: urlInfo.photo_id};
-  this.anchorEl_ = $('<a />').attr('href', '/tweets/?' + $.param(params)).append(this.el_);
+  this.anchorEl_ = $('<a />').attr('href', url).append(this.el_);
   this.wrapperEl_ = $('<li />').css(Style.getRect(rect, size, leftMargin, topMargin)).append(this.anchorEl_);
 }
 
@@ -568,7 +574,6 @@ else if (document.attachEvent) {
 else {
   DEBUG && assert(false);
 }
-
 
 var DEBUG = true;
 
