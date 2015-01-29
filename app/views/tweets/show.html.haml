@@ -2,10 +2,10 @@
 
 .container
   .row
-    .col-xs-12.col-sm-6.col-md-6.left-box
+    .col-xs-12.col-sm-12.col-md-6.left-box
       .photo
         %img{src: @photo.media_url}
-    .col-xs-12.col-sm-6.col-md-6.right-box
+    .col-xs-12.col-sm-12.col-md-6.right-box
       %div
         %img{src: @user.profile_image_url}
         = link_to "@#{@user.screen_name}", "https://twitter.com/#{@user.screen_name}", target: '_blank'
