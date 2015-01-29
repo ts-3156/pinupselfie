@@ -4,11 +4,9 @@ function Application() {
   this.logoImg_ = new CachableImage(this.logoSrcUrl_);
   this.containerEl_ = null;
 
-  //this.popularApiUrl_ = 'popular_json.json';
-  this.popularApiUrl_ = 'assets/json/cute.json';
+  this.popularApiUrl_ = window.json_url;
 
-  //this.cuteApiUrl_ = 'cute_json.json';
-  this.cuteApiUrl_ = 'assets/json/cute.json';
+  this.cuteApiUrl_ = window.json_url;
 
   this.bodyEl_ = document.body;
   this.mainEl_ = document.getElementById('main');

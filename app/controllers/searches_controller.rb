@@ -4,12 +4,13 @@ class SearchesController < ApplicationController
   # GET /searches
   # GET /searches.json
   def index
-    @searches = Search.all
+    render 'index', layout: false
   end
 
   # GET /searches/1
   # GET /searches/1.json
   def show
+    render 'index', layout: false
   end
 
   # GET /searches/new
