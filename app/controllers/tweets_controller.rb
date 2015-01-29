@@ -1,4 +1,6 @@
 class TweetsController < ApplicationController
+  include TweetsHelper
+
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
   # GET /tweets
