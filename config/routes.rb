@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'redirect/to'
-  # resources :tweets
+  get 'search' => 'search#show'
   get 'tweets' => 'tweets#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
