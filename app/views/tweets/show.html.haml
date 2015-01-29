@@ -12,6 +12,8 @@
         &nbsp;
         = "#{@user.name}"
       %div
+        = @tweet.text
+      %div
         = link_to time_ago_in_words(@tweet.created_at), "https://twitter.com/#{@user.screen_name}/status/#{@tweet.id}", target: '_blank'
       .row(style="font-size: 10px;")
         .col-sm-2
@@ -22,7 +24,7 @@
           = "<span style='font-size: 18px;'>#{@tweet.favorite_count}</span>".html_safe
         .col-sm-8
       %hr
-      %div aaa
-      %div aaa
-      %div aaa
-      %div aaa
+      %div
+        = button_to "Search with @#{@user.screen_name}", '', class: 'btn btn-default'
+      %div
+        = button_to 'Search with this hashtag', '', class: 'btn btn-default'
