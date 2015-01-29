@@ -1,4 +1,6 @@
 module TweetsHelper
+  include Twitter::Autolink
+
   def phone_device?
     if agent.match(/iPhone/)
       true

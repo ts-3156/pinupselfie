@@ -8,13 +8,13 @@
     %div{class: right_box_class}
       %div
         %img{src: @user.profile_image_url}
-        = link_to "@#{@user.screen_name}", "https://twitter.com/#{@user.screen_name}", target: '_blank'
+        = link_to "@#{@user.screen_name}", "https://twitter.com/#{@user.screen_name}"
         &nbsp;
         = "#{@user.name}"
       %div
-        = @tweet.text
+        = auto_link(@tweet.text).html_safe
       %div
-        = link_to time_ago_in_words(@tweet.created_at), "https://twitter.com/#{@user.screen_name}/status/#{@tweet.id}", target: '_blank'
+        = link_to time_ago_in_words(@tweet.created_at), "https://twitter.com/#{@user.screen_name}/status/#{@tweet.id}"
       .row(style="font-size: 10px;")
         .col-sm-2
           RETWEETS<br>
@@ -25,6 +25,8 @@
         .col-sm-8
       %hr
       %div
-        = button_to "Search with @#{@user.screen_name}", '', class: 'btn btn-default'
+        = button_to "Search @#{@user.screen_name}", '', class: 'btn btn-default'
       %div
-        = button_to 'Search with this hashtag', '', class: 'btn btn-default'
+        - if @tweet.hashtags?
+          - @tweet.hashtags.each do |hashtag|
+            = button_to "Search ##{hashtag.text}", '', class: 'btn btn-default'
