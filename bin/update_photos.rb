@@ -1,6 +1,6 @@
 require 'ex_twitter'
 
-class Script
+class PhotosUpdater
   CONFIG = YAML.load_file('config/twitter.yml')
 
   DEBUG = CONFIG['debug']
@@ -17,20 +17,28 @@ class Script
   MAX_PAGINATES = DEBUG ? 1 : 3
   COUNT = DEBUG ? 30 : 100
 
+  def initialize(tweets = nil)
+    @tweets = tweets
+  end
+
   def run
-    users = client.users(NAMES)
-    photos = users.map { |user| fetch_photos(user) }.flatten
+    photos =
+      if !@tweets.nil? && @tweets.any?
+        @tweets.select{|t| t[:entities][:media].any? }.map{|t| t[:entities][:media] }.flatten
+      else
+        users = client.users(NAMES)
+        users.map { |user| fetch_photos(user) }.flatten.map{|p| p.attrs }
+      end
 
     puts photos.size
-    puts photos.map { |p| p.attrs[:media_url] }
+    puts photos.map { |p| p[:media_url] }
 
     json = photos.map do |p|
-      attrs = p.attrs
       {
-        url: "#{attrs[:media_url]}:small",
-        link: attrs[:expanded_url],
-        status_id: attrs[:expanded_url].match(%r{status/(\d+)/photo})[1],
-        photo_id: attrs[:id_str]
+        url: "#{p[:media_url]}:small",
+        link: p[:expanded_url],
+        status_id: p[:expanded_url].match(%r{status/(\d+)/photo})[1],
+        photo_id: p[:id_str]
       }
     end
     open('public/assets/json/cute.json', 'w') { |f| f.write(JSON.pretty_generate(json)) }
@@ -54,5 +62,5 @@ class Script
 end
 
 if $0 == __FILE__
-  Script.new.run
+  PhotosUpdater.new.run
 end
