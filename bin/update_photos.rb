@@ -23,7 +23,7 @@ class PhotosUpdater
 
   def run
     photos =
-      if !@tweets.nil? && @tweets.any?
+      if @tweets && @tweets.any?
         @tweets.select{|t| t[:entities][:media].any? }.map{|t| t[:entities][:media] }.flatten
       else
         users = client.users(NAMES)

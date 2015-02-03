@@ -26,8 +26,8 @@ class TweetsController < ApplicationController
   end
 
   def set_tweet
-    if params[:id].present? && params[:id].match(/\A\d+\z/)
-      @tweet = client.status(params[:id])
+    if params[:status_id].present? && params[:status_id].match(/\A\d+\z/)
+      @tweet = client.status(params[:status_id])
     end
   end
 end

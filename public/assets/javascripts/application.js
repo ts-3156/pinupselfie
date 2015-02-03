@@ -293,7 +293,7 @@ Application.prototype.calcLayout = function () {
 function Wrapper(el, urlInfo, rect, size, leftMargin, topMargin) {
   var url;
   if(_.isObject(urlInfo)){
-    var params = {id: urlInfo.status_id, photo_id: urlInfo.photo_id};
+    var params = {status_id: urlInfo.status_id, photo_id: urlInfo.photo_id};
     url = '/tweets/?' + $.param(params);
   }else{
     url = urlInfo;
