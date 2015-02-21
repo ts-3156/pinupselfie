@@ -1,5 +1,5 @@
 function Application() {
-  this.logoSrcUrl_ = 'images/title_logo.png';
+  this.logoSrcUrl_ = '/assets/images/title_logo.png';
   // cache
   this.logoImg_ = new CachableImage(this.logoSrcUrl_);
   this.containerEl_ = null;

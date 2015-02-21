@@ -12,7 +12,7 @@
   </noscript>
 </div>
 <script>
-  window.json_url = 'assets/json/cute.json';
+  window.json_url = '<%= @json_path.remove(%r{^public/}) %>';
 </script>
 <script src="assets/javascripts/json2.js"></script>
 <script src="assets/javascripts/underscore-1.7.0.min.js"></script>

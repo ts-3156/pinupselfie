@@ -6,6 +6,8 @@
 
 /config/twitter.yml
 /public/assets/json/cute.json
+/public/assets/json/hash_tag/*.json
+/public/assets/json/screen_name/*.json
 
 /.env
 

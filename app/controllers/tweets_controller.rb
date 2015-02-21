@@ -3,10 +3,7 @@ class TweetsController < ApplicationController
 
   before_action :set_tweet, only: [:show]
 
-  def index
-    @tweets = Tweet.all
-  end
-
+  # detail of photo page
   def show
     @user = @tweet.user
     @photo =

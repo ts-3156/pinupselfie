@@ -17,14 +17,20 @@ class PhotosUpdater
   MAX_PAGINATES = DEBUG ? 1 : 3
   COUNT = DEBUG ? 30 : 100
 
-  def initialize(tweets = nil)
-    @tweets = tweets
+  def initialize(options)
+    @tweets = options[:tweets] if options.has_key?(:tweets)
+    @json_path =
+      if options.has_key?(:json_path)
+        options[:json_path]
+      else
+        'public/assets/json/cute.json'
+      end
   end
 
   def run
     photos =
       if @tweets && @tweets.any?
-        @tweets.select{|t| t[:entities][:media].any? }.map{|t| t[:entities][:media] }.flatten
+        @tweets.select{|t| t[:entities] && t[:entities][:media] && t[:entities][:media].any? }.map{|t| t[:entities][:media] }.flatten
       else
         users = client.users(NAMES)
         users.map { |user| fetch_photos(user) }.flatten.map{|p| p.attrs }
@@ -41,7 +47,7 @@ class PhotosUpdater
         photo_id: p[:id_str]
       }
     end
-    open('public/assets/json/cute.json', 'w') { |f| f.write(JSON.pretty_generate(json)) }
+    open(@json_path, 'w') { |f| f.write(JSON.pretty_generate(json)) }
   end
 
   private
