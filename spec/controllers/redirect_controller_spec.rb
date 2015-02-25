@@ -14,7 +14,7 @@ RSpec.describe RedirectController, :type => :controller do
     context 'when params[:url] is present' do
       context 'when params[:url] is not twitter.com' do
         let(:url) { 'http://example.com' }
-        it 'redirects to params[:url]' do
+        it 'returns http success' do
           get :to, url: url
           expect(response).to have_http_status(:success)
           expect(response.body).to eq('error')
